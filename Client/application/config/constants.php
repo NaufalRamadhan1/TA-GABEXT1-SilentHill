@@ -85,5 +85,5 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 // custome constant
-define("API", "http://localhost/PWBS-EXT/Server");
-define("APIMAHASISWA",API."/index.php/Mahasiswa");
+define("API", "http://localhost/TA-GABEXT1-Silenthill/Server");
+define("APICUSTOMER",API."/index.php/Customer");
