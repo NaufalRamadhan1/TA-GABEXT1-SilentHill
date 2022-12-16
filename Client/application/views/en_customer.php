@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Mahasiswa</title>
+    <title>Tambah Data Customer</title>
 
     <!-- import file "style.css" -->
     <link rel="stylesheet" href="<?php echo base_url("ext/style.css")?>" />
@@ -19,16 +19,16 @@
     <!-- buat area untuk entry data -->
     <main class="area-grid">
         <section class="item-label1">
-            <label id="lbl_npm" for="txt_npm">
-                NPM :
+            <label id="lbl_kodepesanan" for="txt_kodepesanan">
+                Kode Pesanan :
             </label>
         </section>
         <section class="item-input1">
-            <input type="text" id="txt_npm" class="text-input" maxLength="9">
+            <input type="text" id="txt_kodepesanan" class="text-input" maxLength="9">
         </section>
         <section class="item-error1">
-            <p id="err_npm" class="error-info">
-                NPM Belum Diisi !
+            <p id="err_kodepesanan" class="error-info">
+                Kode Pesanan Belum Diisi !
             </p>
         </section>
 
@@ -61,23 +61,21 @@
         </section>
         
         <section class="item-label4">
-            <label id="lbl_jurusan" for="cbo_jurusan">
-                Jurusan :
+            <label id="lbl_konsumen" for="cbo_konsumen">
+                Konsumen :
             </label>
         </section>
         <section class="item-input4">
-            <select id="cbo_jurusan" class="select-input">
-                <option value="-">Pilih Jurusan</option>
-                <option value="IF">Informatika</option>
-                <option value="SI">Sistem Informasi</option>
-                <option value="TK">Teknik Komputer</option>
-                <option value="TI">Teknologi Informasi</option>
-                <option value="SIA">Sistem Informasi Akuntansi</option>
+            <select id="cbo_konsumen" class="select-input">
+                <option value="-">Pilih Konsumen</option>
+                <option value="Agen">Agen</option>
+                <option value="Distributor">Distributor</option>
+                <option value="Pengecer">Pengecer</option>
             </select>
         </section>
         <section class="item-error4">
-            <p id="err_jurusan" class="error-info">
-                Jurusan Belum Diisi !
+            <p id="err_konsumen" class="error-info">
+                Konsumen Belum Diisi !
             </p>
         </section>
     </main>
@@ -86,6 +84,9 @@
         <button id="btn_simpan" class="btn-primary">Simpan</button>
     </nav>
     
+     <!-- import file script.js -->
+     <script src="<?= base_url("ext/script.js") ?>"></script>
+
     <script>
         // inisialisasi object
         let btn_lihat = document.getElementById("btn_lihat");
@@ -101,15 +102,15 @@
         function setRefresh()
         {
             // mereload halaman
-            location.href="<?php echo site_url("Mahasiswa/addMahasiswa");?>";
+            location.href="<?php echo site_url("Customer/addCustomer");?>";
         }
 
         // buat event untuk "btn_simpan"
         btn_simpan.addEventListener('click', function(){
             // inisialisasi object
-            let lbl_npm = document.getElementById("lbl_npm");
-            let txt_npm = document.getElementById("txt_npm");
-            let err_npm = document.getElementById("err_npm");
+            let lbl_kodepesanan = document.getElementById("lbl_kodepesanan");
+            let txt_kodepesanan = document.getElementById("txt_kodepesanan");
+            let err_kodepesanan = document.getElementById("err_kodepesanan");
 
             let lbl_nama = document.getElementById("lbl_nama");
             let txt_nama = document.getElementById("txt_nama");
@@ -119,25 +120,25 @@
             let txt_telepon = document.getElementById("txt_telepon");
             let err_telepon = document.getElementById("err_telepon");
 
-            let lbl_jurusan = document.getElementById("lbl_jurusan");
-            let cbo_jurusan = document.getElementById("cbo_jurusan");
-            let err_jurusan = document.getElementById("err_jurusan");
+            let lbl_konsumen = document.getElementById("lbl_konsumen");
+            let cbo_konsumen = document.getElementById("cbo_konsumen");
+            let err_konsumen = document.getElementById("err_konsumen");
 
-            // jika npm tidak diisi
-            if(txt_npm.value === "")
+            // jika kodepesanan tidak diisi
+            if(txt_kodepesanan.value === "")
             {
-                err_npm.style.display = "unset";
-                lbl_npm.style.color = "#f00";
-                txt_npm.style.borderColor = "#f00";
-                err_npm.innerHTML = "NPM Harus Diisi !";
+                err_kodepesanan.style.display = "unset";
+                lbl_kodepesanan.style.color = "#f00";
+                txt_kodepesanan.style.borderColor = "#f00";
+                err_kodepesanan.innerHTML = "NPM Harus Diisi !";
             }
-            // jika npm diisi
+            // jika kodepesanan diisi
             else
             {
-                err_npm.style.display = "none";
-                lbl_npm.style.color = "unset";
-                txt_npm.style.borderColor = "unset";
-                err_npm.innerHTML = "";
+                err_kodepesanan.style.display = "none";
+                lbl_kodepesanan.style.color = "unset";
+                txt_kodepesanan.style.borderColor = "unset";
+                err_kodepesanan.innerHTML = "";
             }
 
             
@@ -176,46 +177,46 @@
                 err_telepon.innerHTML = "",
             ]
 
-            // jika jurusan dipilih
-            const jurusan = (cbo_jurusan.value === "-") ?
+            // jika konsumen dipilih
+            const konsumen = (cbo_konsumen.value === "-") ?
             [
-                err_jurusan.style.display = "unset",
-                lbl_jurusan.style.color = "#f00",
-                cbo_jurusan.style.borderColor = "#f00",
-                err_jurusan.innerHTML = "Jurusan Harus Dipilih !",
-                cbo_jurusan.style.color = "#f00",
+                err_konsumen.style.display = "unset",
+                lbl_konsumen.style.color = "#f00",
+                cbo_konsumen.style.borderColor = "#f00",
+                err_konsumen.innerHTML = "Konsumen Harus Dipilih !",
+                cbo_konsumen.style.color = "#f00",
             ]
             :
-            // jika jurusan tidak dipilih
+            // jika konsumen tidak dipilih
             [
-                err_jurusan.style.display = "none",
-                lbl_jurusan.style.color = "unset",
-                cbo_jurusan.style.borderColor = "unset",
-                err_jurusan.innerHTML = "",
-                cbo_jurusan.style.color = "unset",
+                err_konsumen.style.display = "none",
+                lbl_konsumen.style.color = "unset",
+                cbo_konsumen.style.borderColor = "unset",
+                err_konsumen.innerHTML = "",
+                cbo_konsumen.style.color = "unset",
             ]
 
             // jika semua data sudah diisi
-            if(err_npm.innerHTML === "" && nama[3] === "" && telepon[3] === "" && jurusan[3] === "" )
+            if(err_kodepesanan.innerHTML === "" && nama[3] === "" && telepon[3] === "" && konsumen[3] === "" )
             {
                 // panggil function setSave
-                setSave(txt_npm.value,txt_nama.value,txt_telepon.value,cbo_jurusan.value)
+                setSave(txt_kodepesanan.value,txt_nama.value,txt_telepon.value,cbo_konsumen.value)
 
             }
         })
 
-        const setSave = (npm,nama,telepon,jurusan) => {
+        const setSave = (kodepesanan,nama,telepon,konsumen) => {
             // buat variabel untuk form
             let form = new FormData();
 
             // isi/tambah nilai untuk form
-            form.append("npmnya",npm);
+            form.append("kodepesanannya",kodepesanan);
             form.append("namanya",nama);
             form.append("teleponnya",telepon);
-            form.append("jurusannya",jurusan);
+            form.append("konsumennya",konsumen);
 
             // proses kirim data ke controller
-            fetch('<?php echo site_url("Mahasiswa/setSave"); ?>', {
+            fetch('<?php echo site_url("Customer/setSave"); ?>', {
                 method: "POST",
                 body : form
             })

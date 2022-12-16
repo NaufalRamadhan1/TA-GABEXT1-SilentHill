@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tampil Data Mahasiswa</title>
+    <title>Tampil Data Customer</title>
 
     <!-- import fontawesome (CSS) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -16,19 +16,22 @@
     <nav class="area-menu">
         <button id="btn_tambah" class="btn-primary">Tambah</button>
         <button id="btn_refresh" class="btn-secondary" onclick="setRefresh()">Refresh</button>
+        <ul class="nav__wrapper">
+            <li class="nav__item"><a href="<?php echo base_url('Customer/sablon') ?>">Hasil Sablon</a></li>
+          </ul>
     </nav>
 
-    <!-- buat table data mahasiswa-->
+    <!-- buat table data customer-->
     <table>
         <!-- buat judul tabel -->
         <thead>
             <tr>
                 <th style="width : 10%;">Aksi</th>
                 <th style="width : 5%;">No.</th>
-                <th style="width : 10%;">NPM</th>
+                <th style="width : 10%;">Kode Pesanan</th>
                 <th style="width : 55%;">Nama</th>
                 <th style="width : 15%;">Telepon</th>
-                <th style="width : 5%;">Jurusan</th>
+                <th style="width : 5%;">Konsumen</th>
             </tr>
         </thead>
         <!-- buat body tabel -->
@@ -40,7 +43,8 @@
                 $no = 1;
 
                 // perulangan
-                foreach($tampil->mahasiswa as $result)
+                foreach($tampil->Customer as $result)
+                // echo $result."<br>";
                 {
             ?>
 
@@ -48,20 +52,20 @@
                 <td style="text-align : center">
                     <nav class="area-aksi">
                         <!-- tombol edit -->
-                        <button class="btn-edit" id="btn_edit" title="Edit Data" onclick="return gotoUpdate('<?php echo $result->npm_mhs;?>')">
+                        <button class="btn-edit" id="btn_edit" title="Edit Data" onclick="return gotoUpdate('<?php echo $result->kodepesanan_ctr;?>')">
                         <i class="fa-solid fa-pen"></i>
                         </button>
                         <!-- tombol delete -->
-                        <button class="btn-delete" id="btn_delete" title="Delete Data" onclick="return gotoDelete('<?php echo $result->npm_mhs;?>','<?php echo $result->nama_mhs;?>')">
+                        <button class="btn-delete" id="btn_delete" title="Delete Data" onclick="return gotoDelete('<?php echo $result->kodepesanan_ctr;?>','<?php echo $result->nama_ctr;?>')">
                         <i class="fa-solid fa-trash-can"></i>
                         </button>
                     </nav>
                 </td>
                 <td style="text-align : center"><?php echo $no; ?></td>
-                <td style="text-align : center"><?php echo $result->npm_mhs; ?></td>
-                <td style="text-align : justify"><?php echo $result->nama_mhs; ?></td>
-                <td style="text-align : center"><?php echo $result->telepon_mhs; ?></td>
-                <td style="text-align : center"><?php echo $result->jurusan_mhs; ?></td>
+                <td style="text-align : center"><?php echo $result->kodepesanan_ctr; ?></td>
+                <td style="text-align : justify"><?php echo $result->nama_ctr; ?></td>
+                <td style="text-align : center"><?php echo $result->telepon_ctr; ?></td>
+                <td style="text-align : center"><?php echo $result->konsumen_ctr; ?></td>
             </tr>
             <?php
                     $no++;
@@ -92,7 +96,7 @@
             // this.innerText = "Tambah Data";
             
             // alihkan ke halaman.Controller
-            location.href="<?php echo site_url("Mahasiswa/addMahasiswa");?>";
+            location.href="<?php echo site_url("Customer/addCustomer");?>";
         })
 
         function setRefresh()
@@ -102,23 +106,23 @@
         }
 
         // buat fungsi ke halaman edit
-        function gotoUpdate(npm)
+        function gotoUpdate(kodepesanan)
         {
             // encode js base64
-            // let npmx = btoa(npm)
+            // let npmx = btoa(kodepesanan)
             // decoce js base64
-            // let npmx = btoa(npm)
+            // let npmx = btoa(kodepesanan)
 
-            location.href="<?php echo site_url("Mahasiswa/updateMahasiswa");?>" + '/' + npm;
+            location.href="<?php echo site_url("Customer/updateCustomer");?>" + '/' + kodepesanan;
         }
 
         // buat fungsi untuk hapus data
-        function gotoDelete(npm,nama)
+        function gotoDelete(kodepesanan,nama)
         {
-            if(confirm("Data Mahasiswa "+npm+" "+nama+" Ingin Dihapus ?") === true)
+            if(confirm("Data Customer "+kodepesanan+" "+nama+" Ingin Dihapus ?") === true)
             {
-                // alert("Data Mahasiswa Berhasil Dihapus")
-                setDelete(npm,nama);
+                // alert("Data Customer Berhasil Dihapus")
+                setDelete(kodepesanan,nama);
             }
             // else
             // {
@@ -126,17 +130,17 @@
             // }
         }
 
-        function setDelete(npm,nama)
+        function setDelete(kodepesanan,nama)
         {
             // buat variabel
             const data = {
-                "npmnya" : npm
+                "kodepesanannya" : kodepesanan
                 // "namanya" : nama,
                 // "teleponnya" : telepon,
-                // "jurusannya" : jurusan
+                // "konsumennya" : konsumen
             }
             // kirim data async dengan fetch
-            fetch('<?php echo site_url("Mahasiswa/setDelete"); ?>',
+            fetch('<?php echo site_url("Customer/setDelete"); ?>',
             {
                 method : "POST",
                 headers : {
